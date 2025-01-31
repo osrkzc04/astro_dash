@@ -2,7 +2,8 @@ import pygame
 import sys
 import random
 
-from constant import *  # Importar constantes
+from constant import *
+from ultils import resource_path  # Importar constantes
 
 #Score
 score = 0
@@ -26,42 +27,42 @@ screen = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
 #Titulo de la ventana
 pygame.display.set_caption("AstroDash")
 #Icono de la ventana
-icon = pygame.image.load(ICO_IMAGE)
+icon = pygame.image.load(resource_path(ICO_IMAGE))
 pygame.display.set_icon(icon)
 
 # Fuentes
-font = pygame.font.Font(FONT_FAMILY, 20)
-font_score = pygame.font.Font(FONT_FAMILY, 35)
+font = pygame.font.Font(resource_path(FONT_FAMILY), 20)
+font_score = pygame.font.Font(resource_path(FONT_FAMILY), 35)
 
 # Cargar el archivo de audio
-pygame.mixer.music.load('./assets/audio/game-loop.mp3')
+pygame.mixer.music.load(resource_path('./assets/audio/game-loop.mp3'))
 
 def menu():
 
     # Cargar imagen de fondo
-    background_image = pygame.image.load(BACKGROUND_MENU_IMAGE) 
+    background_image = pygame.image.load(resource_path(BACKGROUND_MENU_IMAGE)) 
     background_image = pygame.transform.scale(background_image, (WIDTH_SCREEN, HEIGHT_SCREEN))
     screen.blit(background_image, (0, 0))
 
     #Nave Espacial
-    sapceship = pygame.image.load(SPACESHIP_IMAGE)
+    sapceship = pygame.image.load(resource_path(SPACESHIP_IMAGE))
     spaceship_rec = sapceship.get_rect()
     spaceship_rec.center = (WIDTH_SCREEN // 2, HEIGHT_SCREEN // 2-120)
     screen.blit(sapceship, spaceship_rec)
 
     #AstroDash
-    astro_dash = pygame.image.load(ASTRODASH_LOGO_IMAGE)
+    astro_dash = pygame.image.load(resource_path(ASTRODASH_LOGO_IMAGE))
     astro_rect = astro_dash.get_rect() 
     astro_rect.center = (WIDTH_SCREEN // 2, HEIGHT_SCREEN // 2) # Obtiene el rectángulo de la imagen
     screen.blit(astro_dash, astro_rect)  
 
     # Botón "Jugar"
     play_button = pygame.Rect(224,360,162,51)
-    play_image = pygame.image.load(PLAY_BUTTON_IMAGE)
+    play_image = pygame.image.load(resource_path(PLAY_BUTTON_IMAGE))
     screen.blit(play_image, (224, 360))
     # Botón "Salir"
     exit_button = pygame.Rect(414,360,162,51)
-    exit_image = pygame.image.load(EXIT_BUTTON_IMAGE)
+    exit_image = pygame.image.load(resource_path(EXIT_BUTTON_IMAGE))
     screen.blit(exit_image, (414, 360))
 
     pygame.display.flip()
@@ -85,12 +86,11 @@ def game():
 
     global score,live,lives
 
-
     if live == 0:
         return GAME_OVER
 
     # Cargar imagen de fondo
-    background_image = pygame.image.load(BACKGROUND_GAME_IMAGE) 
+    background_image = pygame.image.load(resource_path(BACKGROUND_GAME_IMAGE)) 
     background_image = pygame.transform.scale(background_image, (WIDTH_SCREEN, HEIGHT_SCREEN))
 
     # Dibujar imagen de fondo
@@ -134,23 +134,23 @@ def game():
 
     #Dibujar jugador
     
-    player_image = pygame.image.load(PLAYER_IMAGE)
+    player_image = pygame.image.load(resource_path(PLAYER_IMAGE))
     screen.blit(player_image, (player.x, player.y))
     
     #Iterar metoritos y dibujarlos
-    imagen_metorito = pygame.image.load(METEOR_IMAGE)
+    imagen_metorito = pygame.image.load(resource_path(METEOR_IMAGE))
     for meteor in meteors:
         screen.blit(imagen_metorito, (meteor.x, meteor.y))
 
     #Puntuación
-    coin_image = pygame.image.load(COIN_IMAGE)
+    coin_image = pygame.image.load(resource_path(COIN_IMAGE))
     screen.blit(coin_image, (50, 40))
     score_text = font_score.render(f"{score}", True, YELLOW)
     screen.blit(score_text, (90, 40))
 
     #Vidas
-    heart_image = pygame.image.load(HEART_IMAGE)
-    heart_outline_image = pygame.image.load(HEART_OUTLINE_IMAGE)
+    heart_image = pygame.image.load(resource_path(HEART_IMAGE))
+    heart_outline_image = pygame.image.load(resource_path(HEART_OUTLINE_IMAGE))
     if(live == 3):
         screen.blit(heart_image, (605, 40))
         screen.blit(heart_image, (660, 40))
@@ -173,20 +173,20 @@ def game():
 
 
 def game_over():
-    global score,live
+    global score,live,meteors
     # Cargar imagen de fondo
-    background_image = pygame.image.load(BACKGROUND_GAME_OVER_IMAGE) 
+    background_image = pygame.image.load(resource_path(BACKGROUND_GAME_OVER_IMAGE) )
     background_image = pygame.transform.scale(background_image, (WIDTH_SCREEN, HEIGHT_SCREEN))
     screen.blit(background_image, (0, 0))
 
     #Game Over Image
-    game_over = pygame.image.load(GAME_OVER)
+    game_over = pygame.image.load(resource_path(GAME_OVER))
     game_over_rect = game_over.get_rect() 
     game_over_rect.center = (WIDTH_SCREEN // 2, HEIGHT_SCREEN // 2 -110) # Obtiene el rectángulo de la imagen
     screen.blit(game_over, game_over_rect)  
 
     #Coin
-    coin_image = pygame.image.load(COIN_IMAGE)
+    coin_image = pygame.image.load(resource_path(COIN_IMAGE))
     screen.blit(coin_image, (WIDTH_SCREEN // 2 - 50, 280))
 
     #Puntuación
@@ -195,12 +195,12 @@ def game_over():
 
     # Botón "Jugar"
     play_button = pygame.Rect(224,360,162,51)
-    play_image = pygame.image.load(PLAY_BUTTON_IMAGE)
+    play_image = pygame.image.load(resource_path(PLAY_BUTTON_IMAGE))
     screen.blit(play_image, (224, 360))
 
     # Botón "Salir"
     exit_button = pygame.Rect(414,360,162,51)
-    exit_image = pygame.image.load(EXIT_BUTTON_IMAGE)
+    exit_image = pygame.image.load(resource_path(EXIT_BUTTON_IMAGE))
     screen.blit(exit_image, (414, 360))
 
     pygame.display.flip()
@@ -213,6 +213,9 @@ def game_over():
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if play_button.collidepoint(mouse_pos):
+                score = 0
+                live = 3
+                meteors = []
                 return GAME  # Cambiar al estado de juego
             elif exit_button.collidepoint(mouse_pos):
                 pygame.quit()
@@ -237,11 +240,11 @@ def main():
                 running = False      
         # Renderizar la pantalla correspondiente al estado actual
         if current_state == MENU:
-            current_state=menu()
+            current_state = menu()
         elif current_state == GAME:
-            current_state=game()
+            current_state = game()
         elif current_state == GAME_OVER:
-            game_over()
+            current_state = game_over()
 
     pygame.quit()
     sys.exit()

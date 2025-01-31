@@ -40,8 +40,8 @@ PLAYER_HEIGHT = 78
 
 #METEOR
 METEOR_IMAGE = "./assets/img/meteor.png"
-METEOR_WIDTH = 52
-METEOR_HEIGHT = 80
+METEOR_WIDTH = 50
+METEOR_HEIGHT = 50
 
 #SOUND
 SOUND_TRACK = "./assets/sound/soundtrack.mp3"
