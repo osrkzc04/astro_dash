@@ -16,7 +16,6 @@ meteors = []
 player_width = PLAYER_WIDTH
 player_height = PLAYER_HEIGHT
 player = pygame.Rect(WIDTH_SCREEN // 2 - player_width // 2, HEIGHT_SCREEN - player_height - 10, player_width, player_height)
-
 meteor_width = METEOR_WIDTH
 meteor_height = METEOR_HEIGHT
 
@@ -60,6 +59,7 @@ def menu():
     play_button = pygame.Rect(224,360,162,51)
     play_image = pygame.image.load(resource_path(PLAY_BUTTON_IMAGE))
     screen.blit(play_image, (224, 360))
+    
     # Botón "Salir"
     exit_button = pygame.Rect(414,360,162,51)
     exit_image = pygame.image.load(resource_path(EXIT_BUTTON_IMAGE))
@@ -87,6 +87,8 @@ def game():
     global score,live,lives
 
     if live == 0:
+        player.x = WIDTH_SCREEN // 2 - player_width // 2
+        player.y = HEIGHT_SCREEN - player_height - 10
         return GAME_OVER
 
     # Cargar imagen de fondo
@@ -174,6 +176,7 @@ def game():
 
 def game_over():
     global score,live,meteors
+    
     # Cargar imagen de fondo
     background_image = pygame.image.load(resource_path(BACKGROUND_GAME_OVER_IMAGE) )
     background_image = pygame.transform.scale(background_image, (WIDTH_SCREEN, HEIGHT_SCREEN))

@@ -178,3 +178,4 @@ pyrightconfig.json
 *.exe
 *.nsi
 output/*
+*.zip
